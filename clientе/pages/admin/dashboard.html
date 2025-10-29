@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Админ панель</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+</head>
+<body>
+    <header>
+        <h1>Админ панель</h1>
+        <button id="logoutBtn">Выйти</button>
+    </header>
+    
+    <div class="content">
+        <!-- Контент админки -->
+    </div>
+
+    <script type="module">
+        import { AuthService } from '/shared/auth.js';
+        import { adminAPI } from '/shared/api.js';
+        
+        // Проверка аутентификации при загрузке страницы
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const authData = await AuthService.checkAuth();
+                if (!authData || authData.role !== 'admin') {
+                    AuthService.logout();
+                    return;
+                }
+                
+                // Загрузка данных для админки
+                const users = await adminAPI.getUsers(AuthService.getToken());
+                console.log('Users:', users);
+                
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                AuthService.logout();
+            }
+        });
+        
+        // Обработчик выхода
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            AuthService.logout();
+        });
+    </script>
+</body>
+</html>

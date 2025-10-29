@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора MathUniverse</title>
+    <link rel="stylesheet" href="main.css">
+    <script type="module">
+        import { api } from '../../shared/api.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                const token = localStorage.getItem('token');
+                
+                if (!token || !user || user.role !== 'admin') {
+                    window.location.href = '../../pages/auth/login.html';
+                    return;
+                }
+                
+                // Можно добавить проверку токена на сервере
+                await api.checkAuth();
+                
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '../../pages/auth/login.html';
+            }
+        });
+    </script>
+</head>
+<body class="light">
+    <script>
+    // Проверка авторизации при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        
+        if (!token || !user || user.role !== 'admin') {
+        window.location.href = '../../pages/auth/login.html';
+        return;
+        }
+        
+        // Остальная инициализация...
+    })
+    </script>
+    <header class="navbar">
+        <div class="wrapper site-header_wrapper">
+            <div class="title">
+                <img id="logo" src="../images/university-icon.png" alt="MathUniverse" class="logo" />
+                <h2>MathUniverse</h2>
+            </div>
+            <div class="controls">
+                <button id="theme-toggle">
+                <img id="theme-icon" src="../images/sun-icon.png" alt="Переключить тему" />
+                </button>
+                <button id="logout-btn" class="logout">Выход</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Боковое меню -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <button class="admin-nav-btn active" data-section="users">Управление пользователями</button>
+                <button class="admin-nav-btn" data-section="groups">Управление группами</button>
+                <button class="admin-nav-btn" data-section="stats">Статистика посещений</button>
+            </nav>
+        </aside>
+
+        <!-- Основное содержимое -->
+        <main class="admin-main">
+            <!-- Секция пользователей -->
+            <section id="users-section" class="admin-section active">
+                <h2>Управление пользователями</h2>
+                <div class="admin-actions">
+                    <button id="add-user-btn" class="admin-action-btn">Добавить пользователя</button>
+                    <div class="admin-search">
+                        <input type="text" placeholder="Поиск пользователей...">
+                        <button>Найти</button>
+                    </div>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Имя</th>
+                                <th>Email</th>
+                                <th>Роль</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут подгружаться через JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Секция групп -->
+            <section id="groups-section" class="admin-section">
+                <h2>Управление группами</h2>
+                <div class="admin-actions-group">
+                    <button id="add-group-btn" class="admin-action-btn">Создать группу</button>
+                    <button id="assign-teacher-btn" class="admin-action-btn">Назначить преподавателя</button>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID группы</th>
+                                <th>Название</th>
+                                <th>Преподаватель</th>
+                                <th>Список студентов</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут подгружаться через JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Секция статистики -->
+            <section id="stats-section" class="admin-section">
+                <h2>Статистика посещений</h2>
+                <div class="admin-filters">
+                    <select id="stats-period">
+                        <option value="day">За день</option>
+                        <option value="week">За неделю</option>
+                        <option value="month">За месяц</option>
+                    </select>
+                    <input type="date" id="stats-date">
+                </div>
+                <div class="stats-container">
+                    <div class="stats-chart">
+                        <!-- График будет здесь -->
+                        <canvas id="login-stats-chart"></canvas>
+                    </div>
+                    <div class="stats-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Пользователь</th>
+                                    <th>Роль</th>
+                                    <th>Последний вход</th>
+                                    <th>Кол-во входов</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Данные будут подгружаться через JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="ss.js"></script>
+    <!-- Модальное окно добавления/редактирования пользователя -->
+    <div id="add-user-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Добавить пользователя</h2>
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                <div class="form-group">
+                    <label for="user-name">Имя:</label>
+                    <input type="text" id="user-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email:</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-password">Пароль:</label>
+                    <div class="password-container">
+                        <input type="password" id="user-password" required>
+                        <span class="toggle-password">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Роль:</label>
+                    <select id="user-role" required>
+                        <option value="student">Студент</option>
+                        <option value="teacher">Преподаватель</option>
+                        <option value="admin">Администратор</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно создания/редактирования группы -->
+    <div id="group-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-group-modal">&times;</span>
+            <h2 id="group-modal-title">Создать группу</h2>
+            <form id="group-form">
+                <input type="hidden" id="group-id">
+                <div class="form-group">
+                    <label for="group-name">Название группы:</label>
+                    <input type="text" id="group-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="group-teacher">Преподаватель:</label>
+                    <select id="group-teacher" required>
+                        <option value="">Выберите преподавателя</option>
+                        <!-- Преподаватели будут загружены через JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Студенты:</label>
+                    <button type="button" id="select-students-btn" class="admin-action-btn" 
+                            style="margin-bottom: 10px;">
+                        Выбрать студентов
+                    </button>
+                    <div id="selected-students-preview" class="selected-students-preview">
+                        <!-- Здесь будет отображаться список выбранных студентов -->
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Новое модальное окно выбора студентов -->
+    <div id="select-students-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-select-students">&times;</span>
+            <h2>Выберите студентов</h2>
+            <div class="search-container">
+                <input type="text" id="student-search" placeholder="Поиск студентов...">
+            </div>
+            <div class="select-students-list" id="select-students-list">
+                <!-- Список студентов будет загружен через JS -->
+            </div>
+            <button id="confirm-students" class="submit-btn">Подтвердить выбор</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно назначения преподавателя -->
+    <div id="assign-teacher-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-assign-modal">&times;</span>
+            <h2>Назначить преподавателя</h2>
+            <form id="assign-teacher-form">
+                <div class="form-group">
+                    <label for="select-group">Группа:</label>
+                    <select id="select-group" required>
+                        <option value="">Выберите группу</option>
+                        <!-- Группы будут загружены через JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-teacher">Преподаватель:</label>
+                    <select id="select-teacher" required>
+                        <option value="">Выберите преподавателя</option>
+                        <!-- Преподаватели будут загружены через JS -->
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Назначить</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

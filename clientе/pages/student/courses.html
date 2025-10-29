@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы</title>
+    <link rel="stylesheet" href="courses.css">
+</head>
+<body class="light">
+    <header class="navbar">
+        <div class="wrapper site-header_wrapper">
+            <div class="title">
+                <img id="logo" src="../images/university-icon.png" alt="MathUniverse" class="logo" />
+                <h2>MathUniverse</h2>
+            </div>
+            <nav>
+                <a href="dashboard.html">Главная</a>
+                <a href="courses.html">Курсы</a>
+                <a href="profile.html">Мой профиль</a>
+            </nav>
+            <div class="controls">
+                <button id="theme-toggle">
+                    <img id="theme-icon" src="../images/sun-icon.png" alt="Переключить тему" />
+                </button>
+                <button id="logout-btn" class="logout">Выход</button>
+            </div>
+        </div>
+    </header>
+
+    <hr/>
+
+    <main class="courses-container">
+        <button id="back-btn" class="back-button">
+            <span class="arrow">←</span> Назад
+        </button>
+        <h2>Мои курсы:</h2>
+        <div class="course-list">
+            <div class="course-card">
+                <a href="course.html" class="course-link">
+                    Дискретная математика. Множества. <br> Операция над множествами: разность.
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const logo = document.getElementById('logo'); 
+        const body = document.body;
+        const logoutBtn = document.getElementById('logout-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        // Обработчик кнопки "Назад" с анимацией
+        backBtn.addEventListener('click', () => {
+            backBtn.classList.add('clicked');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 300); // Задержка 300мс
+        });
+
+        // Проверяем сохранённую тему при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeIcon.src = '../images/moon-icon.png';
+                logo.src = '../images/university-icon1.png';
+            }
+        });
+
+        // Обработчик переключения темы
+        toggleBtn.addEventListener('click', () => {
+            const isLight = body.classList.contains('light');
+            
+            // Переключаем тему
+            body.classList.toggle('light');
+            body.classList.toggle('dark');
+            
+            // Обновляем иконку и логотип
+            themeIcon.src = isLight ? '../images/moon-icon.png' : '../images/sun-icon.png';
+            logo.src = isLight ? '../images/university-icon1.png' : '../images/university-icon.png';
+            
+            // Сохраняем тему в localStorage
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+        // Перенаправляем на страницу входа
+        window.location.href = '../auth/auth.html';
+        });
+    </script>
+</body>
+</html>

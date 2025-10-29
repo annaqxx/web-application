@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Светлая тема */
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+  
+body.light .dashboard {
+    background-color: #f0f0f0;
+    color: #000;
+}
+  
+/* Тёмная тема */
+body.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+  
+body.dark .dashboard {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+/* шапка сайта */
+.site-header_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* логотип картинка */
+.logo {
+    width: 55px;
+    margin-right: 15px;
+}
+
+.title {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* пространство между логотипом и текстом */
+}
+
+.title h2 {
+    font-weight: 500;
+}
+
+.nav {
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+/* навигационное меню */
+nav a {
+    font-size: 20px;
+    margin: 0 50px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: normal;
+}
+  
+/* панель управления */
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+/* кнопка смены темы */
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+}
+#theme-toggle img {
+    width: 36px; 
+}
+  
+/* кнопка "Выход" */
+.logout {
+    background-color: #8D8CB1;
+    font-size: 20px;
+    color: black;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.logout:hover {
+    background-color: #4e4480;
+}
+
+/*  */
+.courses-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+/* кнопка назад */
+.back-button {
+    display: flex;
+    align-items: center;
+    color: red;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    margin: 10px 0 0 80px; 
+    position: absolute;
+    left: 0;
+    top: 150px; 
+}
+/* стрелка */
+.arrow {
+  font-size: 25px;
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+.back-button.clicked {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+/* заголовок */
+.courses-container h2{
+    font-weight: 500;
+}
+
+.course-card a{
+    color: #6666cc;
+    text-decoration: underline;
+}
+
+

@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Светлая тема */
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+  
+body.light .dashboard {
+    background-color: #f0f0f0;
+    color: #000;
+}
+  
+/* Тёмная тема */
+body.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+  
+body.dark .dashboard {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+/* шапка сайта */
+.site-header_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* логотип картинка */
+.logo {
+    width: 55px;
+    margin-right: 15px;
+}
+
+.title {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* пространство между логотипом и текстом */
+}
+
+.title h2 {
+    font-weight: 500;
+}
+
+.nav {
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+/* навигационное меню */
+nav a {
+    font-size: 20px;
+    margin: 0 50px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: normal;
+}
+  
+/* панель управления */
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+/* кнопка смены темы */
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+}
+#theme-toggle img {
+    width: 36px; 
+}
+  
+/* кнопка "Выход" */
+.logout {
+    background-color: #8D8CB1;
+    font-size: 20px;
+    color: black;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.logout:hover {
+    background-color: #4e4480;
+}
+
+/*  */
+.welcome-section h2 {
+    text-align: center;
+}
+
+.hr {
+    color: #8D8CB1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* основной контент */
+.welcome-section {
+    /* padding: 40px 20px; */
+    padding: 100px 10px;
+    text-align: left;
+}
+  
+.dashboard {
+    /* max-width: 600px; */
+    width: 660px;
+    height: 200px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 30px;
+} 
+.dashboard a {
+    color: #6666cc;
+    text-decoration: underline;
+}
+.grade {
+    color: #ff4466;
+}
